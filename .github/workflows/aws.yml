@@ -40,9 +40,9 @@ jobs:
           cd aws/
           npm install
           export STACK_NAME=${GITHUB_REF##*/}-site
-          # cdk boostrap is only required on first deploy to above region (uncomment for first deploy)
-          cdk bootstrap
-          cdk deploy --require-approval never
+          # cdk boostrap is only required on first deploy to above region (uncomment line below for first deploy)
+          # cdk bootstrap
+          cdk deploy --all --require-approval never 
       
       
       
