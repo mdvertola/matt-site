@@ -51,7 +51,7 @@ function App() {
         bulletPoints: ["built serverless web apps", "devsecops consultant for dod client", "aws partnership management"],
       },
     ],
-    projects: [],
+    projects: ["https://www.leadhuntpro.com","https://creator-finance.com","https://www.shopme.bio"],
     styles: {
       background: "bg-gray-50",
       backgroundDark: "dark:bg-gray-500",
@@ -62,13 +62,14 @@ function App() {
   };
   return (
     <div
-      className={`${info.styles.background} ${info.styles.textColor} ${info.styles.backgroundDark} ${info.styles.textColorDark}`}
+      className={`h-screen ${info.styles.background} ${info.styles.textColor} ${info.styles.backgroundDark} ${info.styles.textColorDark}`}
     >
-      <div className={`h-full container mx-auto pb-10`}>
+      <div className={`container mx-auto pb-10`}>
         <Header info={info}/>
         <SocialInfo info={info}/>
+        <Projects info={info}/>
         {/* <WorkExperience info={info}/> */}
-        {/* <Education info={info}/> */}
+        <Education info={info}/>
       </div>
     </div>
   );

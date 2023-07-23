@@ -15,8 +15,8 @@ export class ApiStack extends cdk.Stack {
     super(scope, id, props);
 
     // api endpoints
-    this.api = new apigw.RestApi(this, "leadhunt-prod-api", {
-      description: "Leadhunt prod api",
+    this.api = new apigw.RestApi(this, "api", {
+      description: "api",
       deployOptions: {
         stageName: "prod",
       },
