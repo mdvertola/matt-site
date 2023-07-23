@@ -1,0 +1,46 @@
+name: AWS Deploy
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  CDK-Deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: install/configure cdk
+        run: |
+          npm install -g aws-cdk 
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}  --profile default
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile default
+          aws configure set default.region us-east-1 --profile default
+  
+      - name: build & deploy site
+        env:
+          CI: ""
+        run: |
+          export STACK_NAME=${GITHUB_REF##*/}-site
+          cd site
+          npm install 
+          npm run build
+          mv build ../aws/
+          
+      - name: run cdk deploy
+        run: |
+          cd aws/
+          npm install
+          export STACK_NAME=${GITHUB_REF##*/}-site
+          cdk deploy --require-approval never
+      
+      
+      
