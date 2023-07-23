@@ -27,7 +27,7 @@ export class ComputeStack extends cdk.Stack {
         environment: { bucket_name: "" },
         memorySize: 256,
         layers: [
-          new pylambda.PythonLayerVersion(this, "linkPreviewLambda", {
+          new pylambda.PythonLayerVersion(this, "linkPreviewLambdaLayer", {
             entry: "opt/lambda/linkPreview", // point this to your requirement.txt's parent directory
             compatibleRuntimes: [lambda.Runtime.PYTHON_3_9],
           }),
