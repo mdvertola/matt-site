@@ -4,9 +4,10 @@ import requests
 def lambda_handler(event,context):
     print(event)
     try:
-        
-        statusCode=200
-        body="success" 
+        url = event['queryStringParameters']['url']
+        resp = requests.get(f"http://api.linkpreview.net/?key={os.environ['linkPreviewApiKey']}&q={url}")
+        statusCode=resp.status_code
+        body=resp.text
     except Exception as e:
         print(e)
         statusCode=500

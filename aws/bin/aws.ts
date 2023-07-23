@@ -6,12 +6,17 @@ import { ComputeStack } from "../lib/compute-stack";
 import { ApiStack } from "../lib/api-stack";
 import * as pylambda from "@aws-cdk/aws-lambda-python-alpha";
 const stackName = process.env["STACK_NAME"];
+const linkPreviewApiKey = JSON.stringify(process.env["LINK_PREVIEW_API_KEY"]);
 const app = new cdk.App();
 
 
 // compute resources (ie lambda functions)
+export interface ComputeStackProps extends cdk.StackProps {
+  linkPreviewApiKey: string;
+}
 const compute = new ComputeStack(app, "ComputeStack", {
   stackName: `${stackName?.toLowerCase()}-compute`,
+  linkPreviewApiKey: linkPreviewApiKey
 });
 
 

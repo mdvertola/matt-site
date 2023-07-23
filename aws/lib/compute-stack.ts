@@ -8,10 +8,11 @@ import * as s3Deployment from "aws-cdk-lib/aws-s3-deployment";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import * as pylambda from "@aws-cdk/aws-lambda-python-alpha";
 import * as lambda from "aws-cdk-lib/aws-lambda"
+import { ComputeStackProps } from "../bin/aws";
 export class ComputeStack extends cdk.Stack {
   public readonly linkPreviewLambda: pylambda.PythonFunction;
   
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: ComputeStackProps) {
     super(scope, id, props);
 
     // lambda functions
@@ -24,7 +25,7 @@ export class ComputeStack extends cdk.Stack {
         handler: "lambda_handler",
         index: "preview.py",
         timeout: cdk.Duration.seconds(30),
-        environment: { bucket_name: "" },
+        environment: { linkPreviewApiKey: props.linkPreviewApiKey },
         memorySize: 256,
         layers: [
           new pylambda.PythonLayerVersion(this, "linkPreviewLambdaLayer", {
